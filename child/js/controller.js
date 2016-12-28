@@ -1,15 +1,24 @@
 var app = angular.module('mainModule',[]);
 
-app.controller('ApplyController',['$scope',	function($scp){
+app.run(function($rootScope){
+	$rootScope.nombre = "(app.run) rootScope";
+});
 
-	$scp.nombre = "Harold Villalobos";
-	$scp.i=0;
-	setInterval(function(){
+app.controller('FatherController',['$scope',function($scp){
+
+	$scp.nombre = "(FatherController) Father";
+
+	setTimeout(function(){
 		$scp.$apply(function(){
-			$scp.nombre = "Eduardo "+$scp.i;
-			console.log($scp.nombre);
-		});
-		$scp.i++;
+			$scp.nombre = "=P";
+		})
 	},2000);
 
+}]);
+
+
+app.controller('ChildController',['$scope',	function($scp){
+
+	$scp.nombre = "(ChildController) Harold Villalobos";
+	
 }]);
