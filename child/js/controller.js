@@ -6,7 +6,7 @@ app.run(function($rootScope){
 
 app.controller('FatherController',['$scope',function($scp){
 
-	$scp.nombre = "(FatherController) Father";
+	$scp.nombre = "(Fatherer) Father";
 
 	setTimeout(function(){
 		$scp.$apply(function(){

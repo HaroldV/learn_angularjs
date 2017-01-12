@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ToDoList">
+<head>
+	<meta charset="utf-8">
+	<title>Factories Service</title>
+</head>
+
+<script src="js/angular.min.js"></script>
+<script src="js/angular-local-storage.js"></script>
+<script src="js/controller.js"></script>
+
+<body ng-controller="ToDoController">
+		
+	<ul>
+		<li ng-repeat="actividad in todo">
+			{{actividad.descripcion}} - 
+			{{actividad.fecha}}
+			<span ng-click="removeAct(actividad)" style="color:red; cursor: pointer;">x</span>
+		</li>
+			
+	</ul>
+	<form ng-submit="addAct()">
+		<input type="text" ng-model="newAct.descripcion">
+		<input type="text" ng-model="newAct.fecha">
+		<input type="submit" value="Guardar Actividad">
+	</form>
+
+	<button ng-click="clean()">Limpiar</button>
+	
+
+</body>
+
+</html>
