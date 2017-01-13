@@ -2,18 +2,17 @@ var app = angular.module("CustomDirective",[]);
 
 app.directive("myAutocomplete",function(){
 	
-	function link(scope,element,attrs){
+	function link(scope,element,attrs){				
 		$(element).autocomplete({
 			source: scope[attrs.myAutocomplete],
 			select: function(ev,ui){
-				ev.prevenDefault();
-				if(ui.item){
+				ev.preventDefault();
+				if(ui.item){										
 					scope.optionSelected(ui.item.value);
 				}
 			},
 			focus: function(ev,ui){
-				ev.prevenDefault();
-				alert("OLA")
+				ev.preventDefault();				
 				$(this).val(ui.item.label)
 			}
 
@@ -37,17 +36,17 @@ app.directive("backImg",function(){
 	}	
 });
 
-app.controller("AppCtrl",['$scope','$http',function($scp,$http){
+app.controller("AppCtrl",['$scope','$http',function($scope,$http){
 
-	$scp.repos = [];
+	$scope.repos = [];
 
 	$http.get("https://api.github.com/users/haroldv/repos")
 		.then(function(respon){
-			$scp.posts = respon.data;
+			$scope.posts = respon.data; // agregar el data
 
-			for (var i= respon.length - 1; i >=0; i--){
-				var repo = respon[i];
-				$scp.repos.push(repo.name);
+			for (var i= respon.data.length - 1; i >=0; i--){ // agrega el data
+				var repo = respon.data[i];// agregar el data
+				$scope.repos.push(repo.name); 
 
 			};
 
@@ -55,11 +54,11 @@ app.controller("AppCtrl",['$scope','$http',function($scp,$http){
 			console.log("Error",err);
 		});
 
-	$scp.optionSelected = function(data){
+	$scope.optionSelected = function(data){
 		
-		$scp.$apply(function(){
-			console.log("OPtionSelected=",data);
-			$scp.main_repo = data;
+		$scope.$apply(function(){			
+			$scope.main_repo = data;
+			
 		});
 	}
 
